@@ -15,7 +15,7 @@ def resource_path(relative_path):
 
 # --- HTTP logic in background thread ---
 def send_request():
-    host = "192.168.4.1"
+    host = "192.168.4.1:8080"  # Updated to include port 8080
     endpoint = "/config"
 
     data = {

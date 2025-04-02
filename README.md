@@ -41,7 +41,8 @@ pip install pyinstaller
 ### 2. Build the executable:
 
 ```bash
-python -m PyInstaller --noconfirm --onefile --windowed --add-data "icon.png;." main.py
+python -m PyInstaller --noconfirm --onefile --windowed --icon=icon.ico --add-data "icon.ico;." main.py
+
 ```
 
 - `--onefile`: Creates a single executable

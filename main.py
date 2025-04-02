@@ -37,11 +37,33 @@ def send_request():
 def send_request_threaded():
     threading.Thread(target=send_request, daemon=True).start()
 
+def change_theme(event):
+    theme_map = {"Light Mode": "flatly", "Dark Mode": "darkly"}  # Map user-friendly names to theme names
+    selected_theme = theme_map.get(theme_selector.get(), "flatly")  # Default to "flatly" if not found
+    try:
+        root.style.theme_use(selected_theme)  # Apply the selected theme
+    except Exception as e:
+        print(f"Error changing theme: {e}")
+
 # --- UI Setup ---
 root = ttk.Window(themename="flatly")
-root.title("WiFi HTTP Request Sender")
+root.title("Force Plate Pioneer WiFi Initializer")
 root.geometry("1200x600")
 root.resizable(True, True)
+
+# Load icon from same folder as .exe or script
+def exe_folder_path(filename):
+    if getattr(sys, 'frozen', False):
+        # Running as bundled .exe
+        base_path = os.path.dirname(sys.executable)
+    else:
+        # Running from .py script
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, filename)
+
+icon_path = exe_folder_path("icon.ico")
+root.iconbitmap(icon_path)
+
 
 # --- Layout ---
 frame = ttk.Frame(root, padding=20)
@@ -76,5 +98,17 @@ result_label = ttk.Label(
 )
 result_label.grid(column=0, row=4, columnspan=2, pady=10, sticky="nsew")
 frame.rowconfigure(4, weight=1)
+
+# Add theme selector dropdown
+theme_selector = ttk.Combobox(
+    frame,
+    values=["Light Mode", "Dark Mode"],  # User-friendly names
+    state="readonly",
+    width=10
+)
+theme_selector.set("Light Mode")  # Default to Light Mode
+theme_selector.grid(column=0, row=5, columnspan=1, pady=10, padx=5, sticky="w")
+
+theme_selector.bind("<<ComboboxSelected>>", change_theme)
 
 root.mainloop()

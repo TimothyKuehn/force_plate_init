@@ -24,9 +24,9 @@ def send_request():
         return
 
     data = {
-        "field1": entry1.get(),
-        "field2": entry2.get(),
-        "field3": entry3.get(),
+        "SSID": SSID.get(),
+        "password": password.get(),
+        "hash": hash.get(),
     }
 
     url = f"http://{host}:8080/{endpoint.lstrip('/')}"
@@ -48,15 +48,7 @@ root.title("WiFi HTTP Request Sender")
 root.geometry("800x600")
 root.resizable(True, True)
 
-# --- Load icons safely
-icon_path = resource_path("icon.ico")
-if os.path.exists(icon_path):
-    root.iconbitmap(icon_path)
 
-png_icon_path = resource_path("icon.png")
-if os.path.exists(png_icon_path):
-    icon = PhotoImage(file=png_icon_path)
-    root.iconphoto(True, icon)
 
 # --- Layout ---
 frame = ttk.Frame(root, padding=20)
@@ -71,11 +63,11 @@ def add_entry(label_text, default="", row=0):
     entry.grid(column=1, row=row, pady=5, padx=10, sticky="ew")
     return entry
 
-entry_host = add_entry("Target Host (IP or hostname):", "192.168.0.1", 0)
-entry_endpoint = add_entry("Endpoint (e.g., /submit):", "/submit", 1)
-entry1 = add_entry("Field 1:", "", 2)
-entry2 = add_entry("Field 2:", "", 3)
-entry3 = add_entry("Field 3:", "", 4)
+entry_host = add_entry("Target Host (IP or hostname):", "192.168.4.1", 0)
+entry_endpoint = add_entry("Endpoint (e.g., /config):", "/config", 1)
+SSID = add_entry("SSID:", "", 2)
+password = add_entry("Password:", "", 3)
+hash = add_entry("Hash:", "", 4)
 
 ttk.Button(
     frame,

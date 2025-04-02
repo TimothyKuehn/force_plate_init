@@ -30,7 +30,7 @@ python main.py
 
 ---
 
-## 🛠Building with PyInstaller
+## Building with PyInstaller
 
 ### 1. Install PyInstaller:
 

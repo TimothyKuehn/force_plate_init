@@ -134,9 +134,9 @@ void sendData(float weight) {
   String jsonString;
   serializeJson(doc, jsonString);
 
-  http.begin("https://");  // your endpoint here
+  http.begin("https://"); 
   http.addHeader("Content-Type", "application/json");
-  http.addHeader("x-api-key", "xxxxxx");  // your API key here
+  http.addHeader("x-api-key", "xxxxxx"); 
 
   int httpCode = http.POST(jsonString);
 
